@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Litm — Смены и платежи. В одном ритме.</title>
+  <meta name="description" content="Рабочий график и платежи в одном приложении: смены, праздники Казахстана, подписки, кредиты и рассрочки.">
+  <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Litm — Смены и платежи. В одном ритме.">
+  <meta property="og:description" content="Рабочий график и платежи в одном приложении: смены, праздники Казахстана, подписки, кредиты и рассрочки.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #F2F2F7;
+      --text: #111113;
+      --text-secondary: #5E5E66;
+      --text-tertiary: #8E8E93;
+      --glass-bg: rgba(255, 255, 255, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.78);
+      --glass-shadow: 0 12px 34px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+      --nav-bg: rgba(242, 242, 247, 0.74);
+      --nav-border: rgba(0, 0, 0, 0.07);
+      --pill-bg: rgba(255, 255, 255, 0.68);
+      --pill-border: rgba(0, 0, 0, 0.08);
+      --logo-tile: #FFFFFF;
+      --logo-ring: #111113;
+      --logo-dot: #8E8E93;
+      --accent: #10B981;
+      --accent-teal: #14B8A6;
+      --accent-purple: #7C6CF6;
+      --accent-warm: #F59E0B;
+      --divider: rgba(60, 60, 67, 0.14);
+      --hero-fade: linear-gradient(180deg, rgba(242, 242, 247, 0) 0%, rgba(242, 242, 247, 0.55) 68%, #F2F2F7 100%);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --text: #F5F5F7;
+        --text-secondary: #A1A1AA;
+        --text-tertiary: #71717A;
+        --glass-bg: rgba(28, 28, 32, 0.68);
+        --glass-border: rgba(255, 255, 255, 0.12);
+        --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+        --nav-bg: rgba(12, 12, 14, 0.72);
+        --nav-border: rgba(255, 255, 255, 0.10);
+        --pill-bg: rgba(255, 255, 255, 0.10);
+        --pill-border: rgba(255, 255, 255, 0.16);
+        --logo-tile: #000000;
+        --logo-ring: #FFFFFF;
+        --logo-dot: #8E8E93;
+        --divider: rgba(255, 255, 255, 0.12);
+        --hero-fade: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 68%, #000000 100%);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 76px;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Тонкая стеклянная навигация */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+    }
+
+    .nav-inner {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .brand:hover {
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--logo-tile);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14), inset 0 0 0 0.5px rgba(128, 128, 128, 0.25);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px 14px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* Шапка с живым градиентом как на экране Today */
+    .hero-wrap {
+      position: relative;
+      padding: 118px 20px 68px;
+      overflow: hidden;
+    }
+
+    .mesh-canvas {
+      position: absolute;
+      inset: -120px -80px 0 -80px;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(58px);
+      opacity: 0.72;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .mesh-canvas {
+        opacity: 0.48;
+      }
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      will-change: transform;
+    }
+
+    .blob-1 {
+      width: 420px;
+      height: 420px;
+      top: -60px;
+      left: 6%;
+      background: radial-gradient(circle, #10B981 0%, rgba(16, 185, 129, 0) 70%);
+      animation: floatBlob1 24s ease-in-out infinite alternate;
+    }
+
+    .blob-2 {
+      width: 460px;
+      height: 460px;
+      top: -40px;
+      right: 8%;
+      background: radial-gradient(circle, #14B8A6 0%, rgba(20, 184, 166, 0) 70%);
+      animation: floatBlob2 28s ease-in-out infinite alternate;
+    }
+
+    .blob-3 {
+      width: 440px;
+      height: 440px;
+      top: 90px;
+      left: 32%;
+      background: radial-gradient(circle, #7C6CF6 0%, rgba(124, 108, 246, 0) 70%);
+      animation: floatBlob3 26s ease-in-out infinite alternate;
+    }
+
+    .blob-4 {
+      width: 380px;
+      height: 380px;
+      top: 40px;
+      right: 26%;
+      background: radial-gradient(circle, #F59E0B 0%, rgba(245, 158, 11, 0) 72%);
+      animation: floatBlob4 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatBlob1 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(60px, 35px) scale(1.08); }
+      100% { transform: translate(-30px, 65px) scale(0.96); }
+    }
+
+    @keyframes floatBlob2 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-70px, 45px) scale(1.06); }
+      100% { transform: translate(35px, -25px) scale(0.94); }
+    }
+
+    @keyframes floatBlob3 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-45px, -35px) scale(1.1); }
+      100% { transform: translate(55px, 25px) scale(0.95); }
+    }
+
+    @keyframes floatBlob4 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(45px, -30px) scale(0.92); }
+      100% { transform: translate(-50px, 40px) scale(1.07); }
+    }
+
+    .hero-fade {
+      position: absolute;
+      inset: 0;
+      background: var(--hero-fade);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .app-logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 22.5px;
+      background: var(--logo-tile);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16), inset 0 0 0 1px rgba(128, 128, 128, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 58px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(20px, 3.6vw, 26px);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .hero-lead {
+      max-width: 540px;
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .badge-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* Основной контейнер и секции */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 20px 72px;
+    }
+
+    section {
+      margin-top: 56px;
+    }
+
+    .section-header {
+      margin-bottom: 22px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+
+    .section-meta {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+
+    /* Стеклянные карточки */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--glass-shadow);
+    }
+
+    /* Возможности: 4 карточки */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .icon-today { background: linear-gradient(135deg, #10B981, #059669); }
+    .icon-timeline { background: linear-gradient(135deg, #14B8A6, #0D9488); }
+    .icon-wallet { background: linear-gradient(135deg, #7C6CF6, #5B46E5); }
+    .icon-me { background: linear-gradient(135deg, #F59E0B, #D97706); }
+
+    .feature-name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+    }
+
+    .feature-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+
+    .widgets-banner {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 22px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* Pro */
+    .pro-card {
+      position: relative;
+      overflow: hidden;
+      padding: 32px 28px;
+      background:
+        radial-gradient(circle at top right, rgba(16, 185, 129, 0.18), transparent 55%),
+        radial-gradient(circle at bottom left, rgba(124, 108, 246, 0.16), transparent 55%),
+        var(--glass-bg);
+    }
+
+    .pro-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .pro-title {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .pro-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .pro-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.14);
+      color: var(--accent);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+    }
+
+    .pro-note {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* Политика конфиденциальности */
+    .privacy-intro {
+      margin-bottom: 16px;
+      font-size: 17px;
+    }
+
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .privacy-block h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .privacy-block p {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    .privacy-block ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .privacy-block li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .privacy-block li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .privacy-block li b {
+      color: var(--text);
+    }
+
+    .privacy-span-2 {
+      grid-column: span 2;
+    }
+
+    .english-card {
+      margin-top: 16px;
+    }
+
+    .english-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .english-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    /* Поддержка и FAQ */
+    .support-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 16px;
+    }
+
+    .support-contact {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .support-mail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      word-break: break-all;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    details.faq-item {
+      border-bottom: 1px solid var(--divider);
+      padding-bottom: 12px;
+    }
+
+    details.faq-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    details.faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 6px 0;
+    }
+
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-chevron {
+      width: 18px;
+      height: 18px;
+      color: var(--text-tertiary);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    details.faq-item[open] .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      font-size: 15px;
+      color: var(--text-secondary);
+      padding-top: 6px;
+    }
+
+    /* Подвал */
+    footer {
+      border-top: 1px solid var(--divider);
+      padding: 32px 20px 44px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .footer-inner {
+      max-width: 1024px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Мобильный адаптив (iPhone SE -> десктоп) */
+    @media (max-width: 740px) {
+      .nav-inner {
+        padding: 8px 14px;
+      }
+
+      .brand {
+        font-size: 16px;
+        gap: 7px;
+      }
+
+      .brand-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+      }
+
+      .nav-links {
+        gap: 4px 10px;
+        font-size: 12.5px;
+      }
+
+      .hero-wrap {
+        padding: 98px 16px 44px;
+      }
+
+      .app-logo {
+        width: 84px;
+        height: 84px;
+        border-radius: 20px;
+      }
+
+      .container {
+        padding: 0 16px 56px;
+      }
+
+      section {
+        margin-top: 40px;
+      }
+
+      .glass-card {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .features-grid,
+      .privacy-grid,
+      .support-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .privacy-span-2 {
+        grid-column: span 1;
+      }
+    }
+
+    /* Отключение анимаций при prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .blob-1,
+      .blob-2,
+      .blob-3,
+      .blob-4,
+      .faq-chevron {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Навигация -->
+  <header class="top-nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand" aria-label="Litm — наверх">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 100 100" width="20" height="20">
+            <circle cx="50" cy="50" r="33" fill="none" stroke="var(--logo-ring)" stroke-width="8.5" stroke-linecap="round" stroke-dasharray="175.2 207.35" transform="rotate(-62 50 50)"/>
+            <circle cx="50" cy="17" r="4.3" fill="var(--logo-dot)"/>
+          </svg>
+        </span>
+        <span>Litm</span>
+      </a>
+      <nav class="nav-links" aria-label="Разделы страницы">
+        <a href="#features">Возможности</a>
+        <a href="#pro">Pro</a>
+        <a href="#privacy">Конфиденциальность</a>
+        <a href="#support">Поддержка</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div id="top" class="hero-wrap">
+    <div class="mesh-canvas" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+    </div>
+    <div class="hero-fade" aria-hidden="true"></div>
+
+    <div class="hero">
+      <div class="app-logo" aria-label="Логотип Litm">
+        <!-- Открытое кольцо: толщина 8.5%, разрыв сверху ±28° (56°), скруглённые концы, серая точка в разрыве -->
+        <svg viewBox="0 0 100 100" width="76" height="76" role="img" aria-label="Кольцо Litm">
+          <circle cx="50" cy="50" r="33" fill="none" stroke="var(--logo-ring)" stroke-width="8.5" stroke-linecap="round" stroke-dasharray="175.2 207.35" transform="rotate(-62 50 50)"/>
+          <circle cx="50" cy="17" r="4.3" fill="var(--logo-dot)"/>
+        </svg>
+      </div>
+      <h1>Litm</h1>
+      <p class="hero-subtitle">Смены и платежи. В одном ритме.</p>
+      <p class="hero-lead">Рабочий график и платежи в одном приложении: смены, праздники Казахстана, подписки, кредиты и рассрочки.</p>
+      <div class="badge-capsule">
+        <span class="badge-dot" aria-hidden="true"></span>
+        <span>Скоро в App Store</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <!-- Возможности -->
+    <section id="features">
+      <div class="section-header">
+        <p class="section-eyebrow">Обзор</p>
+        <h2 class="section-title">Возможности</h2>
+      </div>
+
+      <div class="features-grid">
+        <article class="glass-card feature-card">
+          <div class="feature-top">
+            <span class="feature-icon icon-today" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="2" x2="12" y2="4"/>
+                <line x1="12" y1="20" x2="12" y2="22"/>
+                <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/>
+                <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/>
+                <line x1="2" y1="12" x2="4" y2="12"/>
+                <line x1="20" y1="12" x2="22" y2="12"/>
+              </svg>
+            </span>
+            <h3 class="feature-name">Today</h3>
+          </div>
+          <p class="feature-desc">День, смена и остаток денег на одном экране.</p>
+        </article>
+
+        <article class="glass-card feature-card">
+          <div class="feature-top">
+            <span class="feature-icon icon-timeline" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="3"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </span>
+            <h3 class="feature-name">Timeline</h3>
+          </div>
+          <p class="feature-desc">Любой график: 5/2, 2/2, сутки, вахта; праздники и переносы РК.</p>
+        </article>
+
+        <article class="glass-card feature-card">
+          <div class="feature-top">
+            <span class="feature-icon icon-wallet" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="3"/>
+                <line x1="2" y1="10" x2="22" y2="10"/>
+              </svg>
+            </span>
+            <h3 class="feature-name">Wallet</h3>
+          </div>
+          <p class="feature-desc">Подписки, кредиты, рассрочки; курс Нацбанка; сканер чеков на телефоне.</p>
+        </article>
+
+        <article class="glass-card feature-card">
+          <div class="feature-top">
+            <span class="feature-icon icon-me" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </span>
+            <h3 class="feature-name">Me</h3>
+          </div>
+          <p class="feature-desc">iCloud, Face ID, экспорт PDF/CSV.</p>
+        </article>
+      </div>
+
+      <div class="glass-card widgets-banner">
+        <span>🧩</span>
+        <span>9 виджетов для экрана «Домой» и блокировки</span>
+      </div>
+    </section>
+
+    <!-- Pro -->
+    <section id="pro">
+      <div class="glass-card pro-card">
+        <div class="pro-grid">
+          <div>
+            <p class="section-eyebrow">Полный доступ</p>
+            <h2 class="pro-title">Litm Pro — 1 990 ₸ навсегда</h2>
+            <div class="pro-pills">
+              <span class="pro-pill">14 дней бесплатно</span>
+              <span class="pro-pill">Без подписки</span>
+            </div>
+            <p class="pro-note">Покупка через App Store</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Политика конфиденциальности -->
+    <section id="privacy">
+      <div class="section-header">
+        <p class="section-eyebrow">Приватность</p>
+        <h2 class="section-title">Политика конфиденциальности</h2>
+        <p class="section-meta">Последнее обновление: 10 ноября 2026 г.</p>
+      </div>
+
+      <div class="glass-card privacy-intro">
+        <p>Litm — приложение для учёта рабочего графика и регулярных платежей. Мы не собираем ваши данные: у приложения нет серверов, аккаунтов, рекламы и аналитики.</p>
+      </div>
+
+      <div class="privacy-grid">
+        <article class="glass-card privacy-block">
+          <h3>Где хранятся данные</h3>
+          <p>Ваш график, смены, платежи и настройки хранятся только на вашем устройстве. Если включён iCloud, они синхронизируются через вашу личную базу iCloud (Apple CloudKit). У разработчика нет доступа к этим данным.</p>
+        </article>
+
+        <article class="glass-card privacy-block">
+          <h3>Обращения к интернету</h3>
+          <p>Без передачи личных данных приложение загружает:</p>
+          <ul>
+            <li>курсы валют с сайта Национального банка Республики Казахстан;</li>
+            <li>иконки сервисов из App Store (Apple) и с сайтов самих сервисов, в том числе через публичные сервисы иконок (Google, DuckDuckGo, icon.horse). При этом передаётся только название сервиса или адрес его сайта.</li>
+          </ul>
+        </article>
+
+        <article class="glass-card privacy-block privacy-span-2">
+          <h3>Доступы, которые запрашивает приложение</h3>
+          <ul>
+            <li><b>Камера и фото</b> — только когда вы сами сканируете чек или скриншот. Текст распознаётся на устройстве, изображения никуда не отправляются и не сохраняются.</li>
+            <li><b>Геолокация</b> — только по нажатию «Определить по геолокации», чтобы указать место работы. Отслеживания в фоне нет. Координаты хранятся на устройстве; для получения адреса используются сервисы Apple.</li>
+            <li><b>Календарь</b> — чтобы показать ваши события рядом со сменами и (по вашему желанию) добавить смены в отдельный календарь «Litm — смены». Другие календари приложение не изменяет.</li>
+            <li><b>Уведомления</b> — напоминания о платежах формируются на устройстве.</li>
+            <li><b>Face ID</b> — проверка выполняется системой iOS, приложение не получает биометрические данные.</li>
+          </ul>
+        </article>
+
+        <article class="glass-card privacy-block">
+          <h3>Покупки</h3>
+          <p>Покупка Pro проходит через App Store. Платёжные данные обрабатывает Apple, разработчик их не получает.</p>
+        </article>
+
+        <article class="glass-card privacy-block">
+          <h3>Товарные знаки</h3>
+          <p>Логотипы и названия сервисов принадлежат их владельцам и используются только для удобства узнавания ваших платежей.</p>
+        </article>
+
+        <article class="glass-card privacy-block">
+          <h3>Удаление данных</h3>
+          <p>Удалите приложение — данные на устройстве будут удалены. Данные в iCloud можно удалить в Настройках iPhone → [ваше имя] → iCloud → Управление хранилищем.</p>
+        </article>
+
+        <article class="glass-card privacy-block">
+          <h3>Контакты</h3>
+          <p>Вопросы о конфиденциальности: <a href="mailto:litm.support@icloud.com">litm.support@icloud.com</a></p>
+        </article>
+      </div>
+
+      <article class="glass-card english-card" lang="en">
+        <h3>Privacy Policy (English)</h3>
+        <p>Litm does not collect personal data. There are no servers, accounts, ads or analytics. Your schedule, payments and settings are stored on your device and, if enabled, in your private iCloud database (Apple CloudKit). Camera/photo text recognition happens on-device. Location is used only when you tap “Detect by location” to set your workplace; no background tracking. Calendar access is used to show your events and, optionally, to write shifts to a separate “Litm — смены” calendar. The app downloads currency rates from the National Bank of Kazakhstan and service icons from the App Store and service websites (including public icon services); only the service name or domain is sent. Purchases are processed by Apple. Contact: <a href="mailto:litm.support@icloud.com">litm.support@icloud.com</a></p>
+      </article>
+    </section>
+
+    <!-- Поддержка -->
+    <section id="support">
+      <div class="section-header">
+        <p class="section-eyebrow">Помощь</p>
+        <h2 class="section-title">Поддержка</h2>
+      </div>
+
+      <div class="support-layout">
+        <div class="glass-card support-contact">
+          <div>
+            <h3 style="font-size:19px;font-weight:700;margin-bottom:8px;">Связаться</h3>
+            <p style="font-size:15px;color:var(--text-secondary);margin-bottom:16px;">Ответим в течение 2 рабочих дней.</p>
+            <a class="support-mail" href="mailto:litm.support@icloud.com">
+              <span>✉️</span>
+              <span>litm.support@icloud.com</span>
+            </a>
+          </div>
+          <p style="font-size:13px;color:var(--text-tertiary);">Вопросы по графику, платежам, восстановлению покупок и базе сервисов.</p>
+        </div>
+
+        <div class="glass-card">
+          <h3 style="font-size:19px;font-weight:700;margin-bottom:12px;">Частые вопросы</h3>
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary>
+                <span>Как восстановить Pro на новом iPhone?</span>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <p class="faq-answer">Профиль → Litm Pro → «Восстановить покупки». Используйте тот же Apple ID.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Данные не появились на другом устройстве.</span>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <p class="faq-answer">Проверьте, что на обоих устройствах выполнен вход в один iCloud и включён iCloud Drive. Синхронизация может занять несколько минут.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Смены не видны в Календаре iPhone.</span>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <p class="faq-answer">Профиль → Календарь iPhone → включите «Добавлять смены в Календарь» и разрешите доступ к календарю.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Неверный логотип или цена сервиса.</span>
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <p class="faq-answer">Напишите нам название сервиса — исправим в базе.</p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Подвал -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-meta">
+        <span>Сделано в Казахстане 🇰🇿</span>
+        <span>·</span>
+        <span>Разработчик: Aidos Mr.</span>
+        <span>·</span>
+        <span>© 2026 Litm</span>
+      </div>
+      <div class="footer-links">
+        <a href="#features">Возможности</a>
+        <a href="#pro">Pro</a>
+        <a href="#privacy">Конфиденциальность</a>
+        <a href="#support">Поддержка</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Плавный переход по якорям с учётом настройки prefers-reduced-motion
+    (function () {
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var targetId = link.getAttribute('href');
+          if (!targetId || targetId.length < 2) return;
+          var target = document.querySelector(targetId);
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+          history.replaceState(null, '', targetId);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
